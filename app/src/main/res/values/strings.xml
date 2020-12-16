@@ -1,0 +1,40 @@
+<resources>
+    <string name="app_name">FieldBuzzNayan</string>
+    <string name="username">Username</string>
+    <string name="password">Password</string>
+    <string name="login">Login</string>
+    <string name="name">Name</string>
+    <string name="phone">Phone</string>
+    <string name="email">Email</string>
+    <string name="full_address">Full Address</string>
+    <string name="name_of_university">Name of University</string>
+    <string name="graduation_year">Graduation Year</string>
+    <string name="cgpa">CGPA</string>
+    <string name="work_experience_in_month">Work Experience in Month</string>
+    <string name="current_workplace_name">Current Workplace Name</string>
+    <string name="applying_in">Applying in</string>
+    <string name="expected_salary">Expected Salary</string>
+    <string name="reference_name_from_field_buzz_if_any">Reference name from Field Buzz if any</string>
+    <string name="github_project_url">Github project url</string>
+    <string name="click_to_upload_your_cv">Click to upload your cv</string>
+    <string name="submit">Submit</string>
+    <string name="upload_information">Upload Information</string>
+    <string name="applying_department_mobile_or_backend">Applying department, Mobile or Backend</string>
+    <string name="click_to_add_cv">Click to add CV</string>
+    <string name="email_not_valid">Email address not valid</string>
+    <string name="phone_not_valid">Phone number not valid</string>
+    <string name="address_exit">Address exit the character limit</string>
+    <string name="grad_year_warning">Your graduation year not meet the requirements</string>
+    <string name="cgpa_warning">CGPA must be greater than 2.0 and less than 4.0</string>
+    <string name="experience_warning">Work experience not greater than 100 month and not less than 0</string>
+    <string name="expected_salary_error">Expected salary not meet the requirements</string>
+    <string name="project_warning">Project URL exit the character limit</string>
+    <string name="select_cv_warning">Required Field</string>
+    <string name="input_warning">Input length exit 256 character</string>
+    <string name="select_a_cv">Please Select a cv</string>
+
+    <string-array name="role_array">
+        <item>Mobile</item>
+        <item>Backend</item>
+    </string-array>
+</resources>
