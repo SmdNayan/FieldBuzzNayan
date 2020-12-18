@@ -1,4 +1,4 @@
-package com.khusiexpress.fieldbuzznayan.ui.login.model;
+package com.nayan.fieldbuzznayan.ui.login.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

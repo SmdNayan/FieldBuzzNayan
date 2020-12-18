@@ -1,4 +1,4 @@
-package com.khusiexpress.fieldbuzznayan;
+package com.nayan.fieldbuzznayan;
 
 import org.junit.Test;
 

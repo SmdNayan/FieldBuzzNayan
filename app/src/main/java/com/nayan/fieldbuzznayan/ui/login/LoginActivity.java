@@ -1,4 +1,4 @@
-package com.khusiexpress.fieldbuzznayan.ui.login;
+package com.nayan.fieldbuzznayan.ui.login;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,8 +7,8 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.khusiexpress.fieldbuzznayan.databinding.ActivityLoginBinding;
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.InformationUploadActivity;
+import com.nayan.fieldbuzznayan.databinding.ActivityLoginBinding;
+import com.nayan.fieldbuzznayan.ui.informationupload.InformationUploadActivity;
 
 import java.util.Objects;
 
@@ -24,7 +24,6 @@ public class LoginActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(LoginViewModel.class);
 
         viewModel.observeLoginSuccessResponse().observe(this, loginResponse->{
-            Toast.makeText(this, "Login Success" + loginResponse.getToken(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(LoginActivity.this, InformationUploadActivity.class);
             intent.putExtra("token", loginResponse.getToken());
             startActivity(intent);
@@ -36,10 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void initClickListener(){
-        binding.btnLogin.setOnClickListener(v->{
-            loginUser();
-            //startActivity(new Intent(LoginActivity.this, InformationUploadActivity.class));
-        });
+        binding.btnLogin.setOnClickListener(v-> loginUser());
     }
 
     private void loginUser(){

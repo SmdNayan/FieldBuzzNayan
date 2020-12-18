@@ -1,9 +1,9 @@
-package com.khusiexpress.fieldbuzznayan.ui.login;
+package com.nayan.fieldbuzznayan.ui.login;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.khusiexpress.fieldbuzznayan.ui.login.model.LoginResponse;
+import com.nayan.fieldbuzznayan.ui.login.model.LoginResponse;
 
 import java.util.HashMap;
 

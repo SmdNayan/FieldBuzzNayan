@@ -1,10 +1,9 @@
-package com.khusiexpress.fieldbuzznayan.ui.login;
+package com.nayan.fieldbuzznayan.ui.login;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.Gson;
-import com.khusiexpress.fieldbuzznayan.network.RetrofitClient;
-import com.khusiexpress.fieldbuzznayan.ui.login.model.LoginResponse;
+import com.nayan.fieldbuzznayan.network.RetrofitClient;
+import com.nayan.fieldbuzznayan.ui.login.model.LoginResponse;
 
 import org.jetbrains.annotations.NotNull;
 

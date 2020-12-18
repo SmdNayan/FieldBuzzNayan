@@ -32,8 +32,12 @@
     <string name="select_cv_warning">Required Field</string>
     <string name="input_warning">Input length exit 256 character</string>
     <string name="select_a_cv">Please Select a cv</string>
+    <string name="cv_limit_txt">CV file not more than 4MB</string>
+    <string name="select_cv">Select a CV</string>
+    <string name="role_txt_warn">Select your role! wWhich position you want to apply?</string>
 
     <string-array name="role_array">
+        <item>Applying In</item>
         <item>Mobile</item>
         <item>Backend</item>
     </string-array>

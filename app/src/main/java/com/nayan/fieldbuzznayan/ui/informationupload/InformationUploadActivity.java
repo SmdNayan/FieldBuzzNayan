@@ -1,10 +1,9 @@
-package com.khusiexpress.fieldbuzznayan.ui.informationupload;
+package com.nayan.fieldbuzznayan.ui.informationupload;
 
 import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Patterns;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
@@ -17,12 +16,11 @@ import com.google.android.material.textfield.TextInputLayout;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
-import com.karumi.dexter.listener.DexterError;
 import com.karumi.dexter.listener.PermissionRequest;
-import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
-import com.khusiexpress.fieldbuzznayan.R;
-import com.khusiexpress.fieldbuzznayan.databinding.ActivityInformationUploadBinding;
+import com.nayan.fieldbuzznayan.R;
+import com.nayan.fieldbuzznayan.databinding.ActivityInformationUploadBinding;
+import com.nayan.fieldbuzznayan.helper.FileHelper;
 
 import java.io.File;
 import java.util.List;
@@ -33,6 +31,7 @@ public class InformationUploadActivity extends AppCompatActivity {
     private InformationUploadViewModel viewModel;
     private File cvFile = null;
     private String token = "";
+    private int cvFileSize =0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,32 +39,23 @@ public class InformationUploadActivity extends AppCompatActivity {
         binding = ActivityInformationUploadBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         token = "Token " + getIntent().getStringExtra("token");
-        Log.e("SMD", "onCreate: "+token);
         viewModel = new ViewModelProvider(this).get(InformationUploadViewModel.class);
         clickListener();
         setRoleData();
         viewModel.informationAddedResponseLiveDataObserve().observe(this, observeData->{
             Toast.makeText(this, ""+observeData.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("SMD", "onCreate: "+observeData.getCvFile().getId());
             viewModel.uploadCvFile(token, observeData.getCvFile().getId(), cvFile);
         });
 
         viewModel.errorResponseLiveObserve().observe(this, errorResponse -> Toast.makeText(this, ""+errorResponse.getMessage(), Toast.LENGTH_SHORT).show());
 
-        viewModel.cvFileUploadLiveDataObserve().observe(this, cvFileData ->{
-            Toast.makeText(this, ""+cvFileData.getMessage(), Toast.LENGTH_SHORT).show();
-            Log.e("SMD", "onCreate: CV_Uploaded" );
-        });
+        viewModel.cvFileUploadLiveDataObserve().observe(this, cvFileData -> Toast.makeText(this, ""+cvFileData.getMessage(), Toast.LENGTH_SHORT).show());
     }
 
     private void clickListener(){
-        binding.btnUploadCv.setOnClickListener(v->{
-            requestFileReadWritePermission();
-        });
+        binding.btnUploadCv.setOnClickListener(v-> requestFileReadWritePermission());
 
-        binding.btnSubmit.setOnClickListener(v->{
-            getUserProvidedData();
-        });
+        binding.btnSubmit.setOnClickListener(v-> getUserProvidedData());
     }
 
     private void setRoleData(){
@@ -78,10 +68,10 @@ public class InformationUploadActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (resultCode == RESULT_OK) {
+        if (resultCode == RESULT_OK && data.getData()!=null) {
             Uri uri = data.getData();
-            String uriString = uri.toString();
-            cvFile = new File(uriString);
+            cvFile = new File(FileHelper.getPath(this, uri));
+            cvFileSize = (int) ((cvFile.length()/1024));
         }
     }
 
@@ -191,6 +181,12 @@ public class InformationUploadActivity extends AppCompatActivity {
             return;
         }
 
+        // Role check
+        if (applyingIn.equals("Applying In")){
+            Toast.makeText(this, getString(R.string.role_txt_warn), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         // Expected salary check
         if (!emptyStringCheck(expectedSalary, binding.expectedSalaryInTl)){
             return;
@@ -220,9 +216,15 @@ public class InformationUploadActivity extends AppCompatActivity {
             return;
         }
 
+        // CV File check
         if (cvFile==null){
             binding.btnUploadCv.setText(R.string.select_a_cv);
-            Toast.makeText(this, "Select a CV", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.select_cv), Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        if (cvFileSize>4096){
+            Toast.makeText(this, getString(R.string.cv_limit_txt), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -258,14 +260,16 @@ public class InformationUploadActivity extends AppCompatActivity {
     }
 
     private void requestFileReadWritePermission(){
-        Dexter.withContext(this)
+        Dexter.withContext(InformationUploadActivity.this)
             .withPermissions(
                     Manifest.permission.WRITE_EXTERNAL_STORAGE,
                     Manifest.permission.READ_EXTERNAL_STORAGE)
                 .withListener(new MultiplePermissionsListener() {
                 @Override
                 public void onPermissionsChecked(MultiplePermissionsReport report) {
-                    getCvFileFromDevice();
+                    if (report.areAllPermissionsGranted()){
+                        getCvFileFromDevice();
+                    }
                 }
 
                 @Override
@@ -273,12 +277,7 @@ public class InformationUploadActivity extends AppCompatActivity {
                     token.continuePermissionRequest();
                 }
             }).
-            withErrorListener(new PermissionRequestErrorListener() {
-                @Override
-                public void onError(DexterError error) {
-                    Toast.makeText(getApplicationContext(), "Permission Error! " + error.toString(), Toast.LENGTH_SHORT).show();
-                }
-            })
+            withErrorListener(error -> Toast.makeText(getApplicationContext(), "Permission Error! " + error.toString(), Toast.LENGTH_SHORT).show())
             .check();
     }
 }

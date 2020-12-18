@@ -1,4 +1,4 @@
-package com.khusiexpress.fieldbuzznayan.ui.informationupload.model;
+package com.nayan.fieldbuzznayan.ui.informationupload.model;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

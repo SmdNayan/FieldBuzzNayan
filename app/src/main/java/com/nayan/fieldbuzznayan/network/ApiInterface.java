@@ -1,8 +1,8 @@
-package com.khusiexpress.fieldbuzznayan.network;
+package com.nayan.fieldbuzznayan.network;
 
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.model.CvFile;
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.model.InformationAddedResponse;
-import com.khusiexpress.fieldbuzznayan.ui.login.model.LoginResponse;
+import com.nayan.fieldbuzznayan.ui.informationupload.model.CvFile;
+import com.nayan.fieldbuzznayan.ui.informationupload.model.InformationAddedResponse;
+import com.nayan.fieldbuzznayan.ui.login.model.LoginResponse;
 
 import java.util.HashMap;
 
@@ -21,7 +21,7 @@ public interface ApiInterface {
     @POST("api/login/")
     Call<LoginResponse> loginUser(@Body HashMap<String, String> body);
 
-    @POST("api/v0/recruiting-entities/")
+    @POST("api/v1/recruiting-entities/")
     Call<InformationAddedResponse> uploadUserInformation(@Header("Authorization") String token, @Body HashMap<String, Object> fields);
 
     @Multipart

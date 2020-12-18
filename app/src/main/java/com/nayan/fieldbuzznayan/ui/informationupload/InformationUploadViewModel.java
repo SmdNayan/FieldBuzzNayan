@@ -1,11 +1,11 @@
-package com.khusiexpress.fieldbuzznayan.ui.informationupload;
+package com.nayan.fieldbuzznayan.ui.informationupload;
 
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.model.CvFile;
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.model.ErrorResponse;
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.model.InformationAddedResponse;
+import com.nayan.fieldbuzznayan.ui.informationupload.model.CvFile;
+import com.nayan.fieldbuzznayan.ui.informationupload.model.ErrorResponse;
+import com.nayan.fieldbuzznayan.ui.informationupload.model.InformationAddedResponse;
 
 import java.io.File;
 import java.util.HashMap;

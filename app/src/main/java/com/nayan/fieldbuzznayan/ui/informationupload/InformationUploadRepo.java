@@ -1,14 +1,14 @@
-package com.khusiexpress.fieldbuzznayan.ui.informationupload;
+package com.nayan.fieldbuzznayan.ui.informationupload;
 
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
-import com.khusiexpress.fieldbuzznayan.network.RetrofitClient;
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.model.CvFile;
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.model.ErrorResponse;
-import com.khusiexpress.fieldbuzznayan.ui.informationupload.model.InformationAddedResponse;
+import com.nayan.fieldbuzznayan.network.RetrofitClient;
+import com.nayan.fieldbuzznayan.ui.informationupload.model.CvFile;
+import com.nayan.fieldbuzznayan.ui.informationupload.model.ErrorResponse;
+import com.nayan.fieldbuzznayan.ui.informationupload.model.InformationAddedResponse;
 
 import org.jetbrains.annotations.NotNull;
 
@@ -27,12 +27,10 @@ public class InformationUploadRepo {
             @Override
             public void onResponse(@NotNull Call<InformationAddedResponse> call, @NotNull Response<InformationAddedResponse> response) {
                 if (response.isSuccessful()){
-                    Log.e("SMD", "onResponse: 1" );
                     informationAddedResponseSuccessMutableLiveData.postValue(response.body());
                 } else {
                     ErrorResponse errorData = new Gson().fromJson(response.errorBody().charStream(), ErrorResponse.class);
                     errorResponseLiveData.postValue(errorData);
-                    Log.e("SMD", "onResponse: 0" );
                 }
             }
 
@@ -50,11 +48,9 @@ public class InformationUploadRepo {
             public void onResponse(@NotNull Call<CvFile> call, @NotNull Response<CvFile> response) {
                 if (response.isSuccessful()){
                     cvFileMutableLiveData.postValue(response.body());
-                    Log.e("SMD", "onResponse: 2" );
                 } else {
                     ErrorResponse errorData = new Gson().fromJson(response.errorBody().charStream(), ErrorResponse.class);
                     errorResponseLiveData.postValue(errorData);
-                    Log.e("SMD", "onResponse: 3" );
                 }
             }
 
